@@ -20,7 +20,6 @@ class Board {
   set_tile(board,position,tile){
     let new_board = {}
     Object.keys(board).forEach((key, i) =>{
-      //copy by reference for structual sharing
       new_board[key] = (key === position) ? tile : board[key];
     });
     return new_board;
@@ -74,12 +73,10 @@ class Board {
     return new_line;
   }
   fold_board(board, lines){
-    //copy reference
     let new_board = board;
     lines.forEach(line => {
       let new_line = this.fold_line(board, line);
       Object.keys(new_line).forEach(key =>{
-        //mutate reference while building up board
         new_board = this.set_tile(new_board, key, new_line[key]);
       });
     });
