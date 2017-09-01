@@ -49,11 +49,11 @@ class GameBoard extends Component {
   }
   addTouchEvent(){
     window.addEventListener("touchstart",(e)=>{
-      e.preventDefault()
       let startX = e.touches[0].clientX
       let startY = e.touches[0].clientY
       let lock = true
       window.addEventListener("touchmove",(e)=>{
+        e.preventDefault()
         if((Math.abs(e.touches[0].clientX-startX)>20
           ||Math.abs(e.touches[0].clientY-startY)>20)
           &&lock){
@@ -61,9 +61,6 @@ class GameBoard extends Component {
           let moveX = e.touches[0].clientX-startX
           let moveY = e.touches[0].clientY-startY
           let k = moveY/moveX
-          console.log('斜率：'+k)
-          console.log('x: '+moveX)
-          console.log('y: '+moveY)
           if(moveX>0&&-1<=k&&k<1){
             console.log("right")
             this.keyDown({keyCode:39})
@@ -93,7 +90,7 @@ class GameBoard extends Component {
           Score:{ Board.score_board(this.state) } {status}
         </span>
         <Tiles board={this.state}/>
-        <button onClick={this.newGame.bind(this)}>new Game</button>
+        <span onClick={this.newGame.bind(this)} className="new-game">new Game</span>
       </div>
     );
   }
