@@ -1,5 +1,5 @@
 /**
- * Created by zhangxinwang on 30/08/2017.
+ * Created by zhangxinwang.
  */
 
 let tile_counter = 0
@@ -95,6 +95,11 @@ class Board {
     return this.used_spaces(board).map(key =>{
       return (board[key].values.reduce((a, b) => a + b) - board[key].values[0])
     }).reduce((a,b) => a+b, 0);
+  }
+  is_reached_the_goal(board, goal) {
+    return Object.entries(board).some(([_, record]) => {
+     return record && record.values && record.values.some(value => value >= goal) 
+    } )
   }
 }
 

@@ -2,14 +2,15 @@
   "name": "2048",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://zegendary.github.io/2048-react/",
+  "homepage": "https://xiedaimala.com/1024",
   "devDependencies": {
     "gh-pages": "^1.0.0",
     "react-scripts": "1.0.12"
   },
   "dependencies": {
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "weixin-js-sdk": "1.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
