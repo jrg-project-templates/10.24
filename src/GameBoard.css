@@ -232,6 +232,7 @@ body {
   justify-content: space-around;
   margin: 4px 0;
   overflow: visible;
+  cursor: pointer;
 }
 
 .plate-wrapper {
