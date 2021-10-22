@@ -2,7 +2,7 @@
  * Created by zhangxinwang.
  */
 import React, { Component } from "react";
-import Board from "./Board";
+import Board from "../helpers/Board";
 
 class Tiles extends Component {
   render() {

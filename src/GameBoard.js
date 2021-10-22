@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import "./GameBoard.css";
-import Tiles from "./Tiles";
-import Board from "./Board";
+import Tiles from "./components/Tiles";
+import Board from "./helpers/Board";
+import WinTips from "./components/WinTips";
 import welcomeSVG from "./assets/welcome.svg";
 import headerSVG from "./assets/1024.svg";
-import { setupShare } from "./setupShare";
+import { setupShare } from "./helpers/setupShare";
+import Activity from "./components/Activity";
+import plateSVG from "./assets/plate.svg";
+import plateBackground from "./assets/plate-background.png";
 
 class GameBoard extends Component {
   constructor() {
@@ -31,6 +35,7 @@ class GameBoard extends Component {
       board: this.addTiles(this.addTiles(this.initial_board)),
       disableWinTips: false,
       disableActions: false,
+      showActivity: false
     };
   }
 
@@ -79,7 +84,7 @@ class GameBoard extends Component {
   }
 
   keyDown(e) {
-    if (this.state.disableActions) return;
+    if (this.state.disableActions || this.state.showActivity) return;
     let directions = {
       37: Board.left,
       38: Board.up,
@@ -146,6 +151,13 @@ class GameBoard extends Component {
     }));
   }
 
+  toggleActivity() {
+    this.setState(prev => ({
+      ...prev,
+      showActivity: !prev.showActivity
+    }))
+  }
+
   render() {
     return (
       <div className="wrapper">
@@ -154,6 +166,18 @@ class GameBoard extends Component {
           <div className="header">
             <img src={headerSVG} className="header-image" alt="一起来玩吧" />
             <div className="actions">
+
+              <div
+                onClick={this.toggleActivity.bind(this)}
+                className="activity-cursor"
+              >
+                <span className="text-stroke mini">Click →</span>
+                <div className="plate-wrapper">
+                  <img src={plateSVG} className="plate"/>
+                  <img src={plateBackground} className="background"/>
+                </div>
+              </div>
+              
               <span className="score clickable">
                 <span className="prefix">Score:</span>
                 <span className="content">
@@ -178,24 +202,7 @@ class GameBoard extends Component {
           disableWinTips={this.state.disableWinTips}
           onContinueClick={this.onContinueClick.bind(this)}
         />
-      </div>
-    );
-  }
-}
-
-class WinTips extends Component {
-  render() {
-    if (this.props.disableWinTips) return null;
-    if (!this.props.reachedGoal) return null;
-    return (
-      <div className="win-tips-wrapper">
-        <span className="win-tips">Happy</span>
-        <span className="win-tips">Programmer's Day!</span>
-        <div className="actions">
-          <span className="clickable" onClick={this.props.onContinueClick}>
-            Continue to get to the 2048
-          </span>
-        </div>
+        <Activity visible={this.state.showActivity} onCloseActivity={this.toggleActivity.bind(this)} />
       </div>
     );
   }

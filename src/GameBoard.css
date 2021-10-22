@@ -106,6 +106,10 @@ body {
   color: white;
 }
 
+.game-board-wrapper .actions > .clickable {
+  margin: 4px 0;
+}
+
 .game-over {
   position: absolute;
   left: 10%;
@@ -126,7 +130,7 @@ body {
   z-index: 20;
 }
 
-.win-tips-wrapper {
+.win-tips-wrapper, .activity-wrapper {
   position: fixed;
   left: 0;
   right: 0;
@@ -140,7 +144,17 @@ body {
   align-items: center;
 }
 
-.win-tips-wrapper > .win-tips {
+.win-tips-wrapper .clickable {
+  margin-top: 20px;
+  background: #F0C21F;
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+  min-height: 36px;
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+}
+
+.text-stroke {
   color: rgba(255, 199, 0, 1);
   font-size: 30px;
   font-weight: bold;
@@ -153,14 +167,112 @@ body {
 				var(--stroke-width) var(--stroke-width) 0 black;
 }
 
-.win-tips-wrapper .clickable {
-  margin-top: 20px;
-  background: #F0C21F;
-  font-weight: bold;
+.text-stroke.mini {
   font-size: 18px;
-  color: white;
-  min-height: 36px;
-  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+  --stroke-width: 1px;
+}
+
+
+.activity-wrapper, .activity-wrapper * {
+  box-sizing: border-box;
+}
+.activity-wrapper {
+  padding: 50px 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh;
+  bottom: unset;
+  justify-content: flex-start;
+}
+
+.activity-wrapper > .first-line {
+  position: relative;
+  overflow: visible;
+  text-align: center;
+}
+
+.first-line > .cursor-left, .first-line > .cursor-right {
+  position: absolute;
+  transform-origin: center;
+  width: 54px;
+  height: 54px;
+  top: -10px;
+}
+
+.first-line > .cursor-left {
+  left: -60px;
+}
+
+.first-line > .cursor-right {
+  right: -60px;
+  transform: scaleX(-1) ;
+}
+
+.activity-wrapper > .gift, .activity-wrapper > .qrcode {
+  width: 60vw;
+  height: 60vw;
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+.activity-wrapper > .content {
+  text-align: center;
+  padding: 0 10px;
+}
+
+.activity-wrapper > .actions {
+  margin-top: 20px;
+}
+
+.activity-cursor {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  margin: 4px 0;
+  overflow: visible;
+}
+
+.plate-wrapper {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  overflow: visible;
+  display: inline-block;
+  margin-left: 4px;
+}
+
+.plate-wrapper > .background {
+  width: 74px;
+  height: 74px;
+  position: absolute;
+  left: -37px;
+  right: -37px;
+  bottom: -12px;
+  margin: 0 auto;
+  z-index: 1;
+  animation: rotate 2s linear infinite;
+}
+
+.plate-wrapper > .plate {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 32px;
+  height: 32px;
+  z-index: 2;
+}
+
+@keyframes rotate {
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .a1,
