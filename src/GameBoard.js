@@ -169,13 +169,14 @@ class GameBoard extends Component {
 
               <div
                 onClick={this.toggleActivity.bind(this)}
-                className="activity-cursor"
+                className="activity-cursor clickable"
               >
-                <span className="text-stroke mini">Click →</span>
+                
                 <div className="plate-wrapper">
                   <img src={plateSVG} className="plate"/>
                   <img src={plateBackground} className="background"/>
                 </div>
+                <span className="text-stroke mini award">奖品与规则</span>
               </div>
               
               <span className="score clickable">

@@ -183,15 +183,16 @@ body {
   height: 100vh;
   bottom: unset;
   justify-content: flex-start;
+  background-color: rgba(51, 51, 51, 0.6);
 }
 
-.activity-wrapper > .first-line {
+.activity-wrapper > .header {
   position: relative;
   overflow: visible;
   text-align: center;
 }
 
-.first-line > .cursor-left, .first-line > .cursor-right {
+.header > .cursor-left, .header > .cursor-right {
   position: absolute;
   transform-origin: center;
   width: 54px;
@@ -199,11 +200,11 @@ body {
   top: -10px;
 }
 
-.first-line > .cursor-left {
+.header > .cursor-left {
   left: -60px;
 }
 
-.first-line > .cursor-right {
+.header > .cursor-right {
   right: -60px;
   transform: scaleX(-1) ;
 }
@@ -218,8 +219,10 @@ body {
 }
 
 .activity-wrapper > .content {
-  text-align: center;
+  text-align: left;
   padding: 0 5px;
+  list-style: circle;
+  margin: 0.2em 0;
 }
 
 .activity-wrapper > .actions {
@@ -229,19 +232,23 @@ body {
 .activity-cursor {
   display: flex;
   align-items: flex-end;
-  justify-content: space-around;
-  margin: 4px 0;
+  justify-content: space-between;
   overflow: visible;
   cursor: pointer;
 }
 
+/* .activity-cursor > .award {
+  font-size: 12px;
+  
+} */
+
 .plate-wrapper {
   position: relative;
   width: 32px;
-  height: 32px;
+  height: 48px;
   overflow: visible;
   display: inline-block;
-  margin-left: 4px;
+  margin-right: 8px;
 }
 
 .plate-wrapper > .background {
@@ -398,7 +405,23 @@ span.value16384 {
   }
 }
 
-@media (min-height: 800px) {
+@media (max-width: 800px) {
+  .activity-cursor > .award {
+    font-size: 12px;
+  }
+  .activity-cursor {
+    padding: 4px 4px !important;
+  }
+  .activity-cursor > .plate-wrapper {
+    height: 32px;
+    transform: scale(0.6);
+    margin-bottom: -6px;
+    margin-left: -8px;
+    margin-right: 2px;
+  }
+}
+
+@media (min-height: 1000px) {
   .activity-wrapper {
     bottom: 0;
     justify-content: center;
