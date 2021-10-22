@@ -169,7 +169,7 @@ body {
 
 .text-stroke.mini {
   font-size: 18px;
-  --stroke-width: 1px;
+  --stroke-width: 1.5px;
 }
 
 
