@@ -219,7 +219,7 @@ body {
 
 .activity-wrapper > .content {
   text-align: center;
-  padding: 0 10px;
+  padding: 0 5px;
 }
 
 .activity-wrapper > .actions {
@@ -395,5 +395,24 @@ span.value16384 {
     font-size: 30px;
     padding: 20px;
     margin-top: 40px;
+  }
+}
+
+@media (min-height: 800px) {
+  .activity-wrapper {
+    bottom: 0;
+    justify-content: center;
+  }
+}
+
+@supports (-webkit-text-stroke: 1px black) {
+  .text-stroke {
+    --stroke-width: 1.5px;
+    text-shadow: none;
+    -webkit-text-stroke: var(--stroke-width) black;
+    font-weight: 800;
+  }
+  .text-stroke.mini {
+    --stroke-width: .025em;
   }
 }
