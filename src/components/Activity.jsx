@@ -27,7 +27,7 @@ const Activity = (props) => {
       <img src={qrcodeImage} alt="二维码" className="qrcode" />
       <p className="text-stroke mini content">- 将通关截图发到饥人谷群内参赛可以兑换奖品~</p>
       <p className="text-stroke mini content">- 参与游戏即可获得<strong>20元平台优惠券~</strong></p>
-      <p className="text-stroke mini content">- 活动结束时得到数字1024时得分最高者将获得获得<strong>半年VIP会员!</strong></p>
+      <p className="text-stroke mini content">- 活动结束时得分前三位将获得获得<strong>半年VIP会员!</strong></p>
       <div className="divider"></div>
       <h3 className="text-stroke header">
         游戏规则

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { getMe, submitScore } from '../helpers/requests'
 import {
   useDisclosure,
@@ -18,15 +18,55 @@ import {
   useToast
 } from '@chakra-ui/react'
 
+const maxLeftTime = 10
+
+
+const advertisementList = [
+  { content: `<img class="fullscreen" src="//static.xiedaimala.com/xdml/image/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMi05LTIwLTE0LTYtMzAtMjY2.png"><br><img class="fullscreen" src="//static.xiedaimala.com/xdml/image/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMi05LTIwLTE0LTYtMzQtOQ==.png"><br><img class="fullscreen" src="//static.xiedaimala.com/xdml/file/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMi05LTIwLTE0LTYtMzctMzE2.png"><br><img class="fullscreen" src="//static.xiedaimala.com/xdml/file/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMi05LTIwLTE0LTYtNDItNDUw.png"><br><img class="fullscreen" src="//static.xiedaimala.com/xdml/image/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMi05LTIwLTE0LTYtNDYtMjE1.png"><br><img class="fullscreen" src="//static.xiedaimala.com/xdml/image/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMi05LTIwLTE0LTYtNTAtMjQ2.png">` },
+  { content: `<img class="fullscreen" src="https://static.xiedaimala.com/1021_1.jpg">` },
+  {
+    content: `<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/IMG_20221021_165646.jpg">
+<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/IMG_20221021_170501.jpg">
+<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/IMG_20221021_170758.jpg">
+
+<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/IMG_20221021_171020.jpg">
+<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/IMG_20221021_171137.jpg">` },
+  {
+    content: `<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG166.jpeg">
+<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG167.jpeg">
+<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG168.jpeg">
+<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG169.jpeg">
+<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG170.jpeg">
+<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG171.jpeg">
+<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG172.jpeg">
+<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG173.jpeg">
+<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG174.jpeg">
+<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WX20221021-190133.png">
+<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WX20221021-190158.png">` }
+]
+const getIndex = (currentIndex) => {
+  const length = advertisementList.length;
+  const newIndex = Math.floor(Math.random() * length)
+  if (newIndex !== currentIndex) return newIndex
+  else return getIndex(currentIndex)
+};
 const GameOver = (props) => {
+  const { resurrectedLeftTimes } = props
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen: isReviveOpen, onOpen: onReviveOpen, onClose: onReviveClose } = useDisclosure()
   const [input, setInput] = React.useState('')
   const [me, setMe] = React.useState(null)
   const [isLoading, setIsLoading] = React.useState(false)
   const isError = !input.trim()
 
+  const [leftTimes, setLeftTimes] = useState(maxLeftTime + 1)
+  const [index, setIndex] = useState(getIndex())
+  const advertisementContent = advertisementList[index].content
+  const isCounting = leftTimes <= maxLeftTime && leftTimes > 0
+
   const initialRef = React.useRef()
+  const timerRef = React.useRef()
 
   const onSubmitScore = async () => {
     onOpen()
@@ -35,6 +75,39 @@ const GameOver = (props) => {
     if (me && me.nickname) {
       setInput(me.nickname)
     }
+  }
+
+  const resurrectedMe = async () => {
+    onReviveOpen()
+    setIndex(getIndex())
+    startCounting()
+  }
+
+  const onRevive = () => {
+    const event = new CustomEvent('resurrected-me')
+    document.dispatchEvent(event)
+    cancelRevive()
+    toast({
+        position: 'top',
+        title: '已消去四个最小的方块',
+        description: '',
+        status: 'success',
+        duration: 3000,
+    })
+  }
+
+  const cancelRevive = () => {
+    onReviveClose()
+    if (timerRef.current) {
+      clearTimeout(timerRef.current)
+    }
+    setLeftTimes(maxLeftTime + 1)
+  }
+
+  const startCounting = () => {
+    if (leftTimes <= 0) return;
+    setLeftTimes(prev => prev - 1)
+    timerRef.current = setTimeout(startCounting, 1000)
   }
 
   const onSubmit = () => {
@@ -75,9 +148,14 @@ const GameOver = (props) => {
     <>
       <div className="game-over">
         <div>Game Over</div>
-        <div className="submit-score" onClick={onSubmitScore}>
+        <div className="action submit-score" onClick={onSubmitScore}>
           提交成绩
         </div>
+        {
+          resurrectedLeftTimes <= 0 ? <div className="action resurrection disabled">复活次数已用完</div> : <div className="action resurrection" onClick={resurrectedMe}>
+            我要复活
+          </div>
+        }
       </div>
 
       <Modal
@@ -100,7 +178,7 @@ const GameOver = (props) => {
               />
               {!isError ? (
                 <FormHelperText>
-                  得分最高的朋友将获得半年VIP哦~
+                  得分前三位的朋友将获得半年VIP哦~
                 </FormHelperText>
               ) : (
                 <FormErrorMessage>昵称不可为空哦~</FormErrorMessage>
@@ -113,6 +191,34 @@ const GameOver = (props) => {
             <Button colorScheme='blue' onClick={onSubmit} isLoading={isLoading} disabled={isError}>
               提交
             </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      <Modal
+        isOpen={isReviveOpen}
+        onClose={onReviveClose}
+        isCentered
+        size="3xl"
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader style={{ textAlign: 'center' }}>广告时间</ModalHeader>
+          <ModalBody pb={0} pl={4} pr={4}>
+            <div className='advertisement-wrapper' dangerouslySetInnerHTML={{ __html: advertisementContent }}></div>
+          </ModalBody>
+
+          <ModalFooter isCentered style={{ justifyContent: 'center' }}>
+            <Button onClick={cancelRevive} mr={3}>算啦不复活</Button>
+            {
+              leftTimes <= 0 ? (
+                <Button colorScheme='green' onClick={onRevive}>
+                  Heroes Never Die
+                </Button>
+              ) : <Button colorScheme='green' disabled={true}>
+                阅读完后即可复活 {isCounting ? `(${leftTimes}s)` : ''}
+              </Button>
+            }
           </ModalFooter>
         </ModalContent>
       </Modal>

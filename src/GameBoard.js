@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./GameBoard.css";
 import Tiles from "./components/Tiles";
+import TinyAdvertisement from './components/TinyAdvertisement'
 import Board from "./helpers/Board";
 import WinTips from "./components/WinTips";
 import welcomeSVG from "./assets/welcome.svg";
@@ -35,18 +36,14 @@ class GameBoard extends Component {
       board: this.addTiles(this.addTiles(this.initial_board)),
       disableWinTips: false,
       disableActions: false,
-      showActivity: false
+      showActivity: false,
+      resurrectedLeftTimes: 2
     };
   }
 
   componentDidMount() {
     setupShare();
     this.registerEventListener();
-
-    document.addEventListener('submit-new-score', () => {
-      this.setState(prev => ({...prev, showActivity: true}))
-    })
-
   }
 
   componentDidUpdate(_, prevState) {
@@ -82,6 +79,7 @@ class GameBoard extends Component {
       ...prev,
       disableWinTips: false,
       board: this.addTiles(this.addTiles(this.initial_board)),
+      resurrectedLeftTimes: 2
     }));
   }
   setBoard(new_board) {
@@ -150,6 +148,18 @@ class GameBoard extends Component {
       false
     );
     window.addEventListener("keydown", this.keyDown.bind(this), false);
+    document.addEventListener('submit-new-score', () => {
+      this.setState(prev => ({ ...prev, showActivity: true }))
+    })
+    document.addEventListener('resurrected-me', () => {
+      if (this.state.resurrectedLeftTimes <= 0) return;
+      const board = this.state.board
+      const usedKeys = Board.used_spaces(board)
+      const boardValues = usedKeys.reduce((prev, key) => ({ ...prev, [key]: board[key].values.reduce((prev, item) => prev + item) }), {})
+      const clearKeys = usedKeys.sort((a, b) => boardValues[a] > boardValues[b] ? 1 : -1).slice(0, 4)
+      clearKeys.forEach(key => board[key] = null)
+      this.setState(prev => ({ ...prev, board, resurrectedLeftTimes: prev.resurrectedLeftTimes - 1 }))
+    })
   }
 
   onContinueClick() {
@@ -206,7 +216,9 @@ class GameBoard extends Component {
             board={this.state.board}
             gameOver={!Board.can_move(this.state.board)}
             score={this.score}
+            resurrectedLeftTimes={this.state.resurrectedLeftTimes}
           />
+          <TinyAdvertisement/>
         </div>
         <WinTips
           reachedGoal={this.isReachedGoal}

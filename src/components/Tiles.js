@@ -39,7 +39,7 @@ const Tiles = (props) => {
           </span>
         );
       })}
-      <GameOver gameOver={props.gameOver} score={props.score}/>
+      <GameOver {...props}/>
     </div>
   );
 }
