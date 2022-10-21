@@ -42,6 +42,11 @@ class GameBoard extends Component {
   componentDidMount() {
     setupShare();
     this.registerEventListener();
+
+    document.addEventListener('submit-new-score', () => {
+      this.setState(prev => ({...prev, showActivity: true}))
+    })
+
   }
 
   componentDidUpdate(_, prevState) {
@@ -56,6 +61,10 @@ class GameBoard extends Component {
 
   get isReachedGoal() {
     return Board.is_reached_the_goal(this.state.board, 1024);
+  }
+
+  get score() {
+    return Board.score_board(this.state.board)
   }
 
   addTiles(board) {
@@ -171,18 +180,18 @@ class GameBoard extends Component {
                 onClick={this.toggleActivity.bind(this)}
                 className="activity-cursor clickable"
               >
-                
+
                 <div className="plate-wrapper">
-                  <img src={plateSVG} className="plate"/>
-                  <img src={plateBackground} className="background"/>
+                  <img src={plateSVG} className="plate" />
+                  <img src={plateBackground} className="background" />
                 </div>
                 <span className="text-stroke mini award">奖品与规则</span>
               </div>
-              
+
               <span className="score clickable">
                 <span className="prefix">Score:</span>
                 <span className="content">
-                  {Board.score_board(this.state.board)}
+                  {this.score}
                 </span>
               </span>
               <span
@@ -196,6 +205,7 @@ class GameBoard extends Component {
           <Tiles
             board={this.state.board}
             gameOver={!Board.can_move(this.state.board)}
+            score={this.score}
           />
         </div>
         <WinTips
