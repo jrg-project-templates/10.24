@@ -6,17 +6,17 @@ import Board from "../helpers/Board";
 import GameOver from './GameOver'
 
 const tileSubTipMap = {
-  2: '小白',
-  4: 'HTML',
-  8: 'CSS',
-  16: 'JS',
-  32: 'TS',
-  64: 'Vue',
-  128: 'React',
-  256: '项目',
-  512: '简历',
-  1024: '求职成功',
-  2048: '出任CEO',
+  2: '切图',
+  4: '测试',
+  8: '前端',
+  16: 'Python',
+  32: 'Java',
+  64: 'Go',
+  128: 'C++',
+  256: '算法',
+  512: '全栈',
+  1024: '人生巅峰',
+  2048: 'CTO',
   4096: '董事长',
   8092: '福布斯',
   16384: 'Superman'

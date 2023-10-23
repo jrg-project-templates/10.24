@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CursorSVG from '../assets/cursor.svg'
-import qrcodeImage from '../assets/qrcode.jpg'
 import { getHeros } from '../helpers/requests'
+const qrcodeImage = "https://static.xiedaimala.com/xdml/image/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMi02LTE2LTEyLTMwLTctNTk5.jpeg"
 
 const Activity = (props) => {
   const [heroes, setHeros] = useState([])
@@ -21,13 +21,15 @@ const Activity = (props) => {
     <div className="activity-wrapper">
       <h3 className="text-stroke header">
         <img src={CursorSVG} alt="手" className="cursor-left" />
-        扫描二维码加入群聊<br />有机会获得奖品
+        扫描二维码<br />有机会获得奖品
         <img src={CursorSVG} alt="手" className="cursor-right" />
       </h3>
       <img src={qrcodeImage} alt="二维码" className="qrcode" />
-      <p className="text-stroke mini content">- 将通关截图发到饥人谷群内参赛可以兑换奖品~</p>
-      <p className="text-stroke mini content">- 参与游戏即可获得<strong>20元平台优惠券~</strong></p>
-      <p className="text-stroke mini content">- 活动结束时得分前三位将获得获得<strong>半年VIP会员!</strong></p>
+      <div className='lg-center'>
+        <p className="text-stroke mini content">- 将通关截图发给班主任参赛可以兑换奖品~</p>
+        <p className="text-stroke mini content">- 参与游戏即可获得<strong>20元平台优惠券~</strong></p>
+        <p className="text-stroke mini content">- 得分前三位将<strong>免费送10.24专区课程1门</strong>（得分截止24号晚上24点前，记得截图发给班主任哦）</p>
+      </div>
       <div className="divider"></div>
       <h3 className="text-stroke header">
         游戏规则

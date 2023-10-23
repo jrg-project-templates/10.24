@@ -423,34 +423,34 @@ body {
   top: calc(var(--gap-width) * 4 + var(--block-unit) * 3);
 }
 .tile.value2 {
-  background-color: #ebb26f;
+  background-color: #6febcf;
 }
 .tile.value4 {
-  background-color: #ea6feb;
+  background-color: #7a6feb;
 }
 .tile.value8 {
-  background-color: #eb6fa3;
+  background-color: #6fbeeb;
 }
 .tile.value16 {
-  background-color: #7a6feb;
+  background-color: #ea6feb;
 }
 .tile.value32 {
   background-color: #af6feb;
 }
 .tile.value64 {
-  background-color: #6febcf;
+  background-color: #ebb26f;
 }
 .tile.value128 {
-  background-color: #6fbeeb;
+  background-color: #eb6fa3;
 }
 .tile.value256 {
-  background-color: #afeb6f;
+  background-color: #e4eb6f;
 }
 .tile.value512 {
   background-color: #7aeb6f;
 }
 .tile.value1024 {
-  background-color: #e4eb6f;
+  background-color: #afeb6f;
 }
 .tile.value2048 {
   background-color: #601017;
@@ -493,6 +493,16 @@ body {
     font-size: 30px;
     padding: 20px;
     margin-top: 40px;
+  }
+}
+
+.lg-center {
+  text-align: center;
+}
+
+@media (max-width: 500px) {
+  .lg-center {
+    text-align: left;
   }
 }
 

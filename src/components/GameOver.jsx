@@ -22,27 +22,15 @@ const maxLeftTime = 10
 
 
 const advertisementList = [
-  { content: `<img class="fullscreen" src="//static.xiedaimala.com/xdml/image/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMi05LTIwLTE0LTYtMzAtMjY2.png"><br><img class="fullscreen" src="//static.xiedaimala.com/xdml/image/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMi05LTIwLTE0LTYtMzQtOQ==.png"><br><img class="fullscreen" src="//static.xiedaimala.com/xdml/file/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMi05LTIwLTE0LTYtMzctMzE2.png"><br><img class="fullscreen" src="//static.xiedaimala.com/xdml/file/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMi05LTIwLTE0LTYtNDItNDUw.png"><br><img class="fullscreen" src="//static.xiedaimala.com/xdml/image/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMi05LTIwLTE0LTYtNDYtMjE1.png"><br><img class="fullscreen" src="//static.xiedaimala.com/xdml/image/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMi05LTIwLTE0LTYtNTAtMjQ2.png">` },
-  { content: `<img class="fullscreen" src="https://static.xiedaimala.com/1021_1.jpg">` },
+  { content: `<img class="fullscreen" src="//static.xiedaimala.com/xdml/image/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMy0xMC0yMy0xMi00Mi0xOC0xNjQ=..png">` },
+  { content: `<img class="fullscreen" src="//static.xiedaimala.com/xdml/image/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMy0xMC0yMy0xMi0zMy01Ni00NzE=.png">` },
   {
-    content: `<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/IMG_20221021_165646.jpg">
-<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/IMG_20221021_170501.jpg">
-<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/IMG_20221021_170758.jpg">
-
-<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/IMG_20221021_171020.jpg">
-<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/IMG_20221021_171137.jpg">` },
+    content: `<img class="fullscreen" src="//static.xiedaimala.com/xdml/image/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMy0xMC0yMy0xMy0yNC05LTk1Mw==..png">`
+  },
   {
-    content: `<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG166.jpeg">
-<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG167.jpeg">
-<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG168.jpeg">
-<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG169.jpeg">
-<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG170.jpeg">
-<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG171.jpeg">
-<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG172.jpeg">
-<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG173.jpeg">
-<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WechatIMG174.jpeg">
-<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WX20221021-190133.png">
-<img class="fullscreen" src="https://static.xiedaimala.com/xdml/image/WX20221021-190158.png">` }
+    content: `<img class="fullscreen" src="//static.xiedaimala.com/xdml/image/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMy0xMC0yMy0xMy0yNy01Mi01NDI=..png">`
+  },
+  { content: `<img class="fullscreen" src="//static.xiedaimala.com/xdml/image/5939aa7c-d446-47c4-a9c1-ea1e52b10249/MjAyMy0xMC0yMy0xMy0zMC0xNS0xMTM=..png">` }
 ]
 const getIndex = (currentIndex) => {
   const length = advertisementList.length;
@@ -88,11 +76,11 @@ const GameOver = (props) => {
     document.dispatchEvent(event)
     cancelRevive()
     toast({
-        position: 'top',
-        title: '已消去四个最小的方块',
-        description: '',
-        status: 'success',
-        duration: 3000,
+      position: 'top',
+      title: '已消去四个最小的方块',
+      description: '',
+      status: 'success',
+      duration: 3000,
     })
   }
 
